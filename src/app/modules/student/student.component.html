@@ -1,0 +1,31 @@
+<app-navbar></app-navbar>
+<br>
+<div class="container-fluid">
+<table class="table  table-striped">
+  <thead>
+    <tr>
+      <th scope="col-1">Sr.No</th>
+      <th scope="col-3">Exam Subject</th>
+      <th scope="col-2">Duration(in min.)</th>
+      <th scope="col-5">Actions</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let exam of exams; let i = index">
+    <tr>
+      <th scope="row">{{i+1}}</th>
+      <td>{{exam.examName}}</td>
+      <td>{{exam.examDuration}}</td>
+      <td>
+      <!-- Goto Exam -->
+      <input
+        type="button"
+        value="Goto Exam"
+        (click)="OnClick(i)"
+        [routerLink]="['/student-exam-info',i]"
+        class="col-4 center btn btn-success"
+      />
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

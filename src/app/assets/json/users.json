@@ -1,0 +1,8 @@
+{
+  "data":[
+
+  {"user":"student","pass":"student","role":"student"},
+  {"user":"teacher","pass":"teacher","role":"teacher"},
+  {"user":"head","pass":"head","role":"head"}
+  ]
+}

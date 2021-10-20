@@ -1,0 +1,166 @@
+<app-navbar></app-navbar><br>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-success btn-lg float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Add Exam
+</button><br><br>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" [formGroup]="ExamForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="examName" class="form-label">Exam Name</label>
+            <input type="text" class="form-control" id="examName" aria-describedby="examName" formControlName="examName">
+          </div>
+          <div class="mb-3">
+            <label for="examDuration" class="form-label">Duration</label>
+            <input type="text" class="form-control" id="examDuration" formControlName="examDuration">
+          </div>
+        <br>
+        <hr>
+        Exam Paper
+        <hr>
+         <button type="button" class="btn btn-success btn-sm" (click)="addQuestion()">
+          +
+        </button> &nbsp;
+        <button type="button" class="btn btn-success btn-sm" (click)="delQuestion()">
+          -
+        </button>
+        <div>
+        <div formArrayName="ExamQuestions" class="questions" *ngFor="let examParts of examQuestions.controls;let i=index">
+          <div [formGroupName]="i">
+          <p>Question Number {{i+1}}</p>
+          <div class="mb-3">
+            <label for="question" class="form-label">Question</label>
+            <input type="text" class="form-control" id="examQuestion" aria-describedby="examQuestion" formControlName="examQuestion">
+          </div>
+          <div class="mb-3">
+            <label for="Option1" class="form-label">Option</label>
+            <input type="text" class="form-control" id="quesionOption1" formControlName="quesionOption1">
+          </div>
+          <div class="mb-3">
+            <label for="Option2" class="form-label">Option</label>
+            <input type="text" class="form-control" id="quesionOption2" formControlName="quesionOption2">
+          </div>
+          <div class="mb-3">
+            <label for="Option3" class="form-label">Option</label>
+            <input type="text" class="form-control" id="quesionOption3" formControlName="quesionOption3">
+          </div>
+          <div class="mb-3">
+            <label for="Option4" class="form-label">Option</label>
+            <input type="text" class="form-control" id="quesionOption4" formControlName="quesionOption4">
+          </div>
+          <div class="mb-3">
+            <label for="CorrectOptions" class="form-label">Correct Option</label>
+            <input type="text" class="form-control" id="quesionCorrectOption" formControlName="quesionCorrectOption">
+          </div>
+        </div>
+      </div>
+      </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCancel()" >Cancel</button>
+        <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="container-fluid">
+<table class="table table-striped ">
+  <thead>
+    <tr>
+      <th scope="col-1">Sr.No</th>
+      <th scope="col-3">Exam Subject</th>
+      <th scope="col-2">Duration(in min.)</th>
+      <th scope="col-5">Actions</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let exam of exams; let i = index">
+    <tr>
+      <th scope="row">{{i+1}}</th>
+      <td>{{exam.examName}}</td>
+      <td>{{exam.examDuration}}</td>
+      <td>
+        <!-- Delete -->
+        <i
+        type="button"
+        (click)="deleteItem(i)"
+        class="col-1 center material-icons"
+      >delete</i>
+      &nbsp;
+      <!-- Edit -->
+      <i
+        type="button"
+        (click)="editItem(i)"
+        id="edit"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+        class="col-1 center material-icons"
+      >edit</i>
+      &nbsp;
+        <!-- View -->
+        <i
+        type="button"
+        (click)="viewExam(i)"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal2"
+        class="col-1 center material-icons"
+      >preview</i>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col-6">Exam Subject</th>
+              <th scope="col-6">Duration(in min.)</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let vexam of viewexam; let i = index">
+            <tr>
+              <td>{{vexam.examName}}</td>
+              <td>{{vexam.examDuration}}</td>
+            </tr>
+          </tbody>
+        </table><br>
+        <div class="table table-striped" *ngFor="let vexam of viewexam; let i = index">
+          <div class="row">
+            <div class="row">
+              <div scope="row">Question {{i+1}}</div>
+            </div>
+            <div class="row" *ngFor="let vexamq of vexam.ExamQuestions; let j = index">
+              <p>{{vexamq.examQuestion}}</p>
+              <p>a .{{vexamq.quesionOption1}}</p>
+              <p>b .{{vexamq.quesionOption2}}</p>
+              <p>c .{{vexamq.quesionOption3}}</p>
+              <p>d .{{vexamq.quesionOption4}}</p>
+            </div>
+        </div>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+

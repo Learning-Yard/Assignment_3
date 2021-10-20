@@ -1,0 +1,25 @@
+{
+  "exam":[
+    {
+      "examName":"Alopathy",
+      "examDuration":30,
+      "ExamQuestions":[{
+        "examQuestion": "What if Formula of Oxygen",
+        "quesionCorrectOption": "O2",
+        "quesionOption1": "Nacl",
+        "quesionOption2": "O2",
+        "quesionOption3": "CaCO2",
+        "quesionOption4": "HCL"
+      },
+      {
+      "examQuestion": "What if Formula of Salt",
+      "quesionCorrectOption": "NaCl",
+      "quesionOption1": "NaCl",
+      "quesionOption2": "CaCO2",
+      "quesionOption3": "CaCO3",
+      "quesionOption4": "HCL"
+    }
+    ]
+    }
+  ]
+}
